@@ -1,0 +1,365 @@
+# Working directory
+setwd("C:/Users/Arzina/Desktop/Updated_Connectome_Reindeer")
+
+# Required packages
+require(Seurat)
+require(cowplot)
+require(ggplot2)
+require(connectome)
+
+# Load data
+load(file = "R3D0.integrated_PC10.Robj")
+load(file = "R3D3.integrated_PC20_subset.Robj")
+load(file = "R3D7.integrated_PC30.Robj")
+load(file = "R3D14.integrated_PC20.Robj")
+
+# Rename and remove original
+d0 <- R3D0.integrated_PC10
+d3 <- R3D3.integrated_PC20_subset
+d7 <- R3D7.integrated_PC30
+d14 <- R3D14.integrated_PC20
+rm(R3D0.integrated_PC10)
+rm(R3D3.integrated_PC20_subset)
+rm(R3D7.integrated_PC30)
+rm(R3D14.integrated_PC20)
+
+alldays <- reindeer_all_days_by_day.integrated_PC30
+rm(reindeer_all_days_by_day.integrated_PC30)
+
+# Store for later
+data.store <- list(d0,d3,d7,d14)
+
+# Initial plotting
+p1 <- UMAPPlot(d0)
+p2 <- UMAPPlot(d3)
+p3 <- UMAPPlot(d7)
+p4 <- UMAPPlot(d14)
+plot_grid(p1,p2,p3,p4)
+plot_grid(p1, p2)
+plot_grid(p1)
+
+# Look at cell distributions
+table(Idents(d0),d0$sample_ident)
+table(Idents(d3),d3$sample_ident)
+table(Idents(d7),d7$sample_ident)
+table(Idents(d14),d14$sample_ident)
+
+# Check out gene nomenclature...looks similar to human? Same gene symbols? Should check is a homologue conversion is necessary....
+head(rownames(d0))
+
+# Split by condition
+d0 <- SplitObject(d0,split.by = 'sample_ident')
+d3 <- SplitObject(d3,split.by = 'sample_ident')
+d7 <- SplitObject(d7,split.by = 'sample_ident')
+d14 <- SplitObject(d14,split.by = 'sample_ident')
+alldays <- SplitObject(alldays, split.by = 'sample_ident')
+
+# Normalize and Scale all data
+data <- list(d0,d3,d7,d14)
+names(data) <- c('Day 0','Day 3','Day 7','Day 14')
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    DefaultAssay(data[[i]][[j]]) <- "RNA"
+    data[[i]][[j]] <- NormalizeData(data[[i]][[j]])
+    data[[i]][[j]] <- ScaleData(data[[i]][[j]],features = rownames(data[[i]][[j]]))
+  }
+}
+
+data <- list(d0,d3)
+names(data) <- c('Day 0','Day 3')
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    DefaultAssay(data[[i]][[j]]) <- "RNA"
+    data[[i]][[j]] <- NormalizeData(data[[i]][[j]])
+    data[[i]][[j]] <- ScaleData(data[[i]][[j]],features = rownames(data[[i]][[j]]))
+  }
+}
+
+data <- list(d0)
+names(data) <- c('Day 0')
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    DefaultAssay(data[[i]][[j]]) <- "RNA"
+    data[[i]][[j]] <- NormalizeData(data[[i]][[j]])
+    data[[i]][[j]] <- ScaleData(data[[i]][[j]],features = rownames(data[[i]][[j]]))
+  }
+}
+
+data <- list(d3)
+names(data) <- c('Day 3')
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    DefaultAssay(data[[i]][[j]]) <- "RNA"
+    data[[i]][[j]] <- NormalizeData(data[[i]][[j]])
+    data[[i]][[j]] <- ScaleData(data[[i]][[j]],features = rownames(data[[i]][[j]]))
+  }
+}
+
+data <- list(d7)
+names(data) <- c('Day 7')
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    DefaultAssay(data[[i]][[j]]) <- "RNA"
+    data[[i]][[j]] <- NormalizeData(data[[i]][[j]])
+    data[[i]][[j]] <- ScaleData(data[[i]][[j]],features = rownames(data[[i]][[j]]))
+  }
+}
+
+data <- list(d14)
+names(data) <- c('Day 14')
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    DefaultAssay(data[[i]][[j]]) <- "RNA"
+    data[[i]][[j]] <- NormalizeData(data[[i]][[j]])
+    data[[i]][[j]] <- ScaleData(data[[i]][[j]],features = rownames(data[[i]][[j]]))
+  }
+}
+
+data <- list(alldays)
+names(data) <- c('alldays')
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    DefaultAssay(data[[i]][[j]]) <- "RNA"
+    data[[i]][[j]] <- NormalizeData(data[[i]][[j]])
+    data[[i]][[j]] <- ScaleData(data[[i]][[j]],features = rownames(data[[i]][[j]]))
+  }
+}
+
+# Make connectomes
+data.con <- list(list(),list(),list(),list())
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    data.con[[i]][[j]] <- CreateConnectome(data[[i]][[j]],
+                                           species = 'human',
+                                           p.values = F)
+    data.con[[i]][[j]]$species <- 'reindeer'
+  }
+  names(data.con[[i]]) <- names(data[[i]])
+}
+
+data.con <- list(list(),list())
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    data.con[[i]][[j]] <- CreateConnectome(data[[i]][[j]],
+                                           species = 'human',
+                                           p.values = F)
+    data.con[[i]][[j]]$species <- 'reindeer'
+  }
+  names(data.con[[i]]) <- names(data[[i]])
+}
+
+data.con <- list(list())
+for (i in 1:length(data)){
+  for (j in 1:length(data[[i]])){
+    data.con[[i]][[j]] <- CreateConnectome(data[[i]][[j]],
+                                           species = 'human',
+                                           p.values = F)
+    data.con[[i]][[j]]$species <- 'reindeer'
+  }
+  names(data.con[[i]]) <- names(data[[i]])
+}
+
+# Compare antler to back at each timepoint?
+data.diff <- list()
+for (i in 1:length(data.con)){
+  data.diff[[i]] <- DifferentialConnectome(data.con[[i]][['Day 0']],data.con[[i]][['Day 3']]) # In this instance, back skin is being treated as the control sample'
+}
+names(data.diff) <- names(data)
+
+# Check out a few plots at Day 0:
+table(Idents(d0),d0$sample_ident)
+table(Idents(d3),d3$sample_ident)
+
+temp <- data.diff[['alldays']]
+up.up <- subset(temp, ligand.norm.lfc > 0 & recept.norm.lfc > 0)
+down.down <- subset(temp, ligand.norm.lfc < 0 & recept.norm.lfc < 0)
+up.down <- subset(temp, ligand.norm.lfc > 0 & recept.norm.lfc < 0 )
+down.up <- subset(temp, ligand.norm.lfc < 0 & recept.norm.lfc > 0)
+
+temp <- data.con[['alldays']]
+up.up <- subset(temp, ligand.norm.lfc > 0 & recept.norm.lfc > 0)
+down.down <- subset(temp, ligand.norm.lfc < 0 & recept.norm.lfc < 0)
+up.down <- subset(temp, ligand.norm.lfc > 0 & recept.norm.lfc < 0 )
+down.up <- subset(temp, ligand.norm.lfc < 0 & recept.norm.lfc > 0)
+
+save(up.up, file = "up.up.Robj")
+save(down.down, file = "down.down.Robj")
+
+## Keratinocytes --> Fibroblasts
+pdf(file = 'Immune --> Fibroblasts Antler vs. Back DAY 0.pdf',width = 8,height = 8)
+CircosDiff(up.up,
+           min.score = 0.25,
+           lab.cex = 0.5,
+           targets.include = c("Endothelial", "CD45+IL1B+Leukocyte", "T-cell", "VSM", "Macrophage"),
+           sources.include = 'Fibroblast',
+           #cols.use = c("red", "orange", "yellow", "green", "blue", "purple"),
+           min.pct = 0.1,
+           title = 'Day 0 Antler Enriched')
+CircosDiff(down.down,
+           min.score = 0.25,
+           lab.cex = 0.5,
+           targets.include = c("Endothelial", "CD45+IL1B+Leukocyte", "T-cell", "VSM", "Macrophage"),
+           sources.include = 'Fibroblast',
+           min.pct = 0.1,
+           title = 'Day 0 Back Enriched')
+
+CircosDiff(up.up,
+           min.score = 0.25,
+           lab.cex = 0.5,
+           targets.include = c("CD68+DUSP2+Macrophage", "CD68+NOS+Macrophage", "Arterial Endothelial", "CD68+CSF1R+Macrophage", "IL17+T-cell", "CD74+T-cell", "Lymphatic Endothelial", "CD68+NCF1+Myeloid", "VSM"),
+           sources.include = 'Fibroblast',
+           #cols.use = c("red", "orange", "yellow", "green", "blue", "purple"),
+           min.pct = 0.1,
+           title = 'Day 3 Antler Enriched')
+CircosDiff(down.down,
+           min.score = 0.25,
+           lab.cex = 0.5,
+           targets.include = c("CD68+DUSP2+Macrophage", "CD68+NOS+Macrophage", "Arterial Endothelial", "CD68+CSF1R+Macrophage", "IL17+T-cell", "CD74+T-cell", "Lymphatic Endothelial", "CD68+NCF1+Myeloid", "VSM"),
+           sources.include = 'Fibroblast',
+           min.pct = 0.1,
+           title = 'Day 3 Back Enriched')
+
+
+dev.off()
+
+CircosDiff(up.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = c("Endothelial", "CD45+IL1B+Leukocyte", "T-cell", "VSM", "Macrophage"),
+           targets.include = 'Fibroblast',
+           title = 'Immune UP -> Fibroblasts DOWN')
+CircosDiff(down.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = c("Endothelial", "CD45+IL1B+Leukocyte", "T-cell", "VSM",  "Macrophage"),
+           targets.include = 'Fibroblast',
+           title = 'Immune DOWN -> Fibroblasts UP')
+
+CircosDiff(up.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           targets.include = c("CD68+DUSP2+Macrophage", "CD68+NOS+Macrophage",  "CD68+CSF1R+Macrophage", "IL17+T-cell", "CD74+T-cell", "Lymphatic Endothelial", "CD68+NCF1+Myeloid", "VSM", "Arterial Endothelial"),
+           sources.include = 'Fibroblast',
+           title = 'Day 3 Fibro UP -> Immune UP')
+
+CircosDiff(down.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           targets.include = c("CD68+DUSP2+Macrophage", "CD68+NOS+Macrophage",  "CD68+CSF1R+Macrophage", "IL17+T-cell", "CD74+T-cell", "Lymphatic Endothelial", "CD68+NCF1+Myeloid", "VSM", "Arterial Endothelial"),
+           sources.include = 'Fibroblast',
+           title = 'Day 3 Fibro DOWN -> Immune DOWN',
+           min.pct = 0.15)
+
+
+
+## Keratinocytes --> Endothelial
+pdf(file = 'Keratinocytes --> Endothelial Antler vs. Back DAY 0.pdf',width = 8,height = 8)
+CircosDiff(up.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Keratinocyte',
+           targets.include = 'Endothelial',
+           title = 'Keratinocytes UP -> Endothelial UP')
+CircosDiff(up.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Keratinocyte',
+           targets.include = 'Endothelial',
+           title = 'Keratinocytes UP -> Endothelial DOWN')
+CircosDiff(down.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Keratinocyte',
+           targets.include = 'Endothelial',
+           title = 'Keratinocytes DOWN -> Endothelial UP')
+CircosDiff(down.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Keratinocyte',
+           targets.include = 'Endothelial',
+           title = 'Keratinocytes DOWN -> Endothelial DOWN')
+dev.off()
+
+## Macrophages --> Fibroblasts
+pdf(file = 'Macrophages --> Fibroblasts Antler vs. Back DAY 0.pdf',width = 8,height = 8)
+CircosDiff(up.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Macrophage',
+           targets.include = 'Endothelial',
+           title = 'Macrophage UP -> Endothelial UP')
+CircosDiff(up.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Macrophage',
+           targets.include = 'Endothelial',
+           title = 'Macrophage UP -> Endothelial DOWN')
+CircosDiff(down.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Macrophage',
+           targets.include = 'Endothelial',
+           title = 'Macrophage DOWN -> Endothelial UP')
+CircosDiff(down.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Macrophage',
+           targets.include = 'Endothelial',
+           title = 'Macrophage DOWN -> Endothelial DOWN')
+dev.off()
+
+## Fibroblasts --> Endothelial
+pdf(file = 'Fibroblasts --> Endothelial Antler vs. Back DAY 0.pdf',width = 8,height = 8)
+CircosDiff(up.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Fibroblast',
+           targets.include = 'Endothelial',
+           title = 'Fibroblast UP -> Endothelial UP')
+CircosDiff(up.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Fibroblast',
+           targets.include = 'Endothelial',
+           title = 'Fibroblast UP -> Endothelial DOWN')
+CircosDiff(down.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Fibroblast',
+           targets.include = 'Endothelial',
+           title = 'Fibroblast DOWN -> Endothelial UP')
+CircosDiff(down.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Fibroblast',
+           targets.include = 'Endothelial',
+           title = 'Fibroblast DOWN -> Endothelial DOWN')
+dev.off()
+
+## Fibroblasts --> Keratinocyte
+pdf(file = 'Fibroblasts --> Keratinocyte Antler vs. Back DAY 0.pdf',width = 8,height = 8)
+CircosDiff(up.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Fibroblast',
+           targets.include = 'Keratinocyte',
+           title = 'Fibroblast UP -> Keratinocyte UP')
+CircosDiff(up.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Fibroblast',
+           targets.include = 'Keratinocyte',
+           title = 'Fibroblast UP -> Keratinocyte DOWN')
+CircosDiff(down.up,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Fibroblast',
+           targets.include = 'Keratinocyte',
+           title = 'Fibroblast DOWN -> Keratinocyte UP')
+CircosDiff(down.down,
+           min.score = 0.25,
+           lab.cex = 0.8,
+           sources.include = 'Fibroblast',
+           targets.include = 'Keratinocyte',
+           title = 'Fibroblast DOWN -> Keratinocyte DOWN')
+dev.off()
