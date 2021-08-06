@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+#SBATCH --mem=40GB
+#SBATCH --nodes=1
+#SBATCH --ntasks=15
+#SBATCH --partition=cpu2019
+#SBATCH --time=24:00:00
+
+export PATH=/work/biernaskie_lab/sarthak_sinha/cellrangeratacv120transfer/cellranger-atac_v1.2.0/cellranger-atac-1.2.0:$PATH
+export PATH=/home/sarthak.sinha1/bcl2fastq2-v2.20/bin:$PATH
+
+
+cellranger-atac count --id=Day_7_Back_ATAC_count_cow \
+                   --reference=/home/sarthak.sinha1/ATAC_Cow/cow \
+                   --fastqs=/work/biernaskie_lab/sarthak_sinha/cellranger-atac_September2020/Reindeer_ATAC_mkfastqs_cellranger-atac_Sept2020/outs/fastq_path/HKCGWDRXX/Day_7_Back_ATAC,/work/biernaskie_lab/sarthak_sinha/cellranger-atac_September2020,/work/biernaskie_lab/sarthak_sinha/cellrangeratacv120transfer/cellranger-atac_v1.2.0/Reindeer_Day0_7_scATAC-Seq/Deep_Seq_Reindeer_ATAC/Round_2 \
+                   --sample=Day_7_Back_ATAC,Lib23_MPS12341724_E03_8997,Lib23_MPS12341724_E03_9176
+

@@ -1,0 +1,3 @@
+﻿library_id,fragments,cells
+Day_0_Back_ATAC_count,/work/biernaskie_lab/sarthak_sinha/cellranger-atac_September2020/Day_0_Back_ATAC_count/outs/fragments.tsv.gz,/work/biernaskie_lab/sarthak_sinha/cellranger-atac_September2020/Day_0_Back_ATAC_count/outs/singlecell.csv
+Day_0_Antler_ATAC_count,/work/biernaskie_lab/sarthak_sinha/cellranger-atac_September2020/Day_0_Antler_ATAC_count/outs/fragments.tsv.gz,/work/biernaskie_lab/sarthak_sinha/cellranger-atac_September2020/Day_0_Antler_ATAC_count/outs/singlecell.csv

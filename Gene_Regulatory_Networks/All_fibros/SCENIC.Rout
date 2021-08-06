@@ -1,0 +1,103 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-conda_cos6-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> setwd("/home/ajaffer/SCENIC_Runs/SCENIC_Reindeer_all_fibros")
+> library(SCENIC)
+> library(GENIE3)
+> library(RcisTarget)
+> library(AUCell)
+> scenicOptions <- readRDS("int/scenicOptions.Rds")
+> 
+> load("x.Robj")
+Warning: namespace ‘Seurat’ is not available and has been replaced
+by .GlobalEnv when processing object ‘x’
+> exprMat <- x@assays$RNA@counts
+> exprMat <- as.matrix(exprMat)
+> genesKept <- loadInt(scenicOptions, "genesKept")
+> exprMat_filtered <- exprMat[genesKept,]
+> exprMat_filtered <- log2(exprMat_filtered+1) 
+> 
+> runGenie3(exprMat_filtered, scenicOptions)
+Running GENIE3 part 1
+Running GENIE3 part 2
+Running GENIE3 part 3
+Running GENIE3 part 4
+Running GENIE3 part 5
+Running GENIE3 part 6
+Running GENIE3 part 7
+Running GENIE3 part 8
+Running GENIE3 part 9
+Running GENIE3 part 10
+> runSCENIC_1_coexNetwork2modules(scenicOptions)
+21:30	Creating TF modules
+Number of links between TFs and targets: 2161974
+             [,1]
+nTFs          714
+nTargets     7552
+nGeneSets    3291
+nLinks    2894629
+> runSCENIC_2_createRegulons(scenicOptions)
+21:31	Step 2. Identifying regulons
+tfModulesSummary:
+
+ top5perTarget top10perTarget           w005 top50perTarget          top50 
+            82            115            187            332            700 
+          w001 
+           714 
+21:31	RcisTarget: Calculating AUC
+Scoring database:  [Source file: hg19-500bp-upstream-7species.mc9nr.feather]
+Scoring database:  [Source file: hg19-tss-centered-10kb-7species.mc9nr.feather]
+21:48	RcisTarget: Adding motif annotation
+Number of motifs in the initial enrichment: 824628
+Number of motifs annotated to the corresponding TF: 10937
+21:49	RcisTarget: Prunning targets
+Number of motifs that support the regulons: 10937
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    2.0     9.0    29.0   412.5   263.0  6431.0 
+> runSCENIC_3_scoreCells(scenicOptions, exprMat)
+22:42	Step 3. Analyzing the network activity in each individual cell
+
+Number of regulons to evaluate on cells: 268
+Biggest (non-extended) regulons: 
+	 BCLAF1 (3184g)
+	 ELK3 (3094g)
+	 CREB3L1 (2081g)
+	 POLR2A (1831g)
+	 ZMIZ1 (1703g)
+	 EZH2 (1679g)
+	 YY1 (1399g)
+	 SF1 (1338g)
+	 TFDP1 (1143g)
+	 MXI1 (892g)
+Quantiles for the number of genes detected by cell: 
+(Non-detected genes are shuffled at the end of the ranking. Keep it in mind when choosing the threshold for calculating the AUC).
+    min      1%      5%     10%     50%    100% 
+ 100.00  188.04  364.20  459.00 1316.00 5886.00 
+Using 16 cores.
+Warning in .AUCell_calcAUC(geneSets = geneSets, rankings = rankings, nCores = nCores,  :
+  Using only the first 188.04 genes (aucMaxRank) to calculate the AUC.
+Using 16 cores.
+null device 
+          1 
+> #runSCENIC_4_aucell_binarize(scenicOptions)
+> 
+> 
+> proc.time()
+       user      system     elapsed 
+1410236.586    3006.247   95084.243 

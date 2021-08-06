@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+#SBATCH --mem=40GB
+#SBATCH --nodes=1
+#SBATCH --ntasks=15
+#SBATCH --partition=cpu2019
+#SBATCH --time=24:00:00
+
+export PATH=/work/biernaskie_lab/sarthak_sinha/cellrangeratacv120transfer/cellranger-atac_v1.2.0/cellranger-atac-1.2.0:$PATH
+export PATH=/home/sarthak.sinha1/bcl2fastq2-v2.20/bin:$PATH
+
+
+cellranger-atac mkref cow --config cow.config
