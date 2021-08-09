@@ -1,4 +1,4 @@
 # Welcome
-This repository contains analysis scripts for Sparks et al. 2020 (Under Review). Single-cell datasets can be visualized on our [Reindeer Atlas](http://www.biernaskielab.ca/reindeer_atlas/).
+Reproducibility repository accompanying 'Skin regeneration is enabled in the absence of fibroblast inflammatory priming' (Under Review). Single-cell datasets can be visualized on our [Reindeer Atlas](http://www.biernaskielab.ca/reindeer_atlas/).
 
-![](img/Splash_Page.jpeg)
+![](img/0_Graphical_Abstract.jpeg)
