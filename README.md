@@ -16,5 +16,9 @@ In adult mammals, skin wound healing has evolved to favor rapid repair through f
 4. Inflammatory fibroblasts exacerbate immune response and myeloid maturation during scarring.
 5. Pro-inflammatory fibroblast cytokines (PLAU, PDG, CSF1, CXCL3, CCL2) ameliorate velvet regeneration.
 
-# Data
+# Raw Datasets
+## Single-cell RNA-Seq
+scRNA-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin
+NCBI GEO: [GSE142854](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE142854) <br/>
 
+# Processed Datasets
