@@ -1,0 +1,11 @@
+Classifier trained to distinguish fibroblast states with a support vector machine (SVM) with a radial kernel can be downloaded from:
+https://figshare.com/ndownloader/files/33286064
+
+Classifier trained to distinguish fibroblast states with Random Forest (ranger) can be downloaded from:
+https://figshare.com/ndownloader/files/33286067
+
+Classifier trained to distinguish fibroblast states with Model Averaged Neural Network (avNNet) can be downloaded from:
+https://figshare.com/ndownloader/files/33286070
+
+Harmony-integrated human fibroblasts with information regarding tissue of origin and scPred-inferred fibroblast states can be downloaded from:
+https://figshare.com/ndownloader/files/33286076
