@@ -1,0 +1,5 @@
+Seurat object housing all cells recovered from pre-injury baseline and from 3-, 7-, and 14-days post-wound. Samples were demultiplexed to resolve the three biological replicates based on natural genetic variation using the souporcell toolkit. 
+https://figshare.com/ndownloader/files/31804721
+
+Genotype assignment meta data (for reference only):
+https://figshare.com/ndownloader/files/31636247
