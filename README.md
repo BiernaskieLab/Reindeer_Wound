@@ -21,11 +21,19 @@ In adult mammals, skin wound healing has evolved to favor rapid repair through f
 scRNA-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin
 NCBI GEO: [GSE142854](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE142854) <br/>
 
-scRNA-Seq datasets characterizing ectopic velvet grafts transplanted onto non-regenerative backskin 
+scRNA-Seq datasets characterizing ectopic velvet grafts transplanted onto non-regenerative backskin
 NCBI GEO: [GSE153095](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE153095) <br/>
 
-## Single-cell ATAC-Seq
+scRNA-Seq datasets characterizing PBMCs from venous blood supply to antler velvet or to backskin 3 days post-wound
+NCBI GEO: [GSE180653](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE180653) <br/>
 
+## Single-cell ATAC-Seq
+scATAC-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin and ectopic velvet grafts transplanted onto non-regenerative backskin
+NCBI GEO: [GSE176360](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176360) <br/>
+
+## Bulk RNA-Seq
+Bulk RNA-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin
+NCBI GEO: [GSE168746](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE168746) <br/>
 
 # Processed Datasets
 Velocyto- and SCENIC-generated LOOMs and genetic demultiplexed Seurat objects are available from [Figshare](http://doi.org/10.6084/m9.figshare.14196344) <br/>
