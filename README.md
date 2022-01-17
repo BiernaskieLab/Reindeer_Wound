@@ -18,21 +18,21 @@ In adult mammals, skin wound healing has evolved to favor rapid repair through f
 
 # Raw Datasets
 ## Single-cell RNA-Seq
-scRNA-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin
+scRNA-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin <br/>
 NCBI GEO: [GSE142854](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE142854) <br/>
 
-scRNA-Seq datasets characterizing ectopic velvet grafts transplanted onto non-regenerative backskin
+scRNA-Seq datasets characterizing ectopic velvet grafts transplanted onto non-regenerative backskin <br/>
 NCBI GEO: [GSE153095](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE153095) <br/>
 
-scRNA-Seq datasets characterizing PBMCs from venous blood supply to antler velvet or to backskin 3 days post-wound
+scRNA-Seq datasets characterizing PBMCs from venous blood supply to antler velvet or to backskin 3 days post-wound <br/>
 NCBI GEO: [GSE180653](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE180653) <br/>
 
 ## Single-cell ATAC-Seq
-scATAC-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin and ectopic velvet grafts transplanted onto non-regenerative backskin
+scATAC-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin and ectopic velvet grafts transplanted onto non-regenerative backskin <br/>
 NCBI GEO: [GSE176360](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176360) <br/>
 
 ## Bulk RNA-Seq
-Bulk RNA-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin
+Bulk RNA-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin <br/>
 NCBI GEO: [GSE168746](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE168746) <br/>
 
 # Processed Datasets
