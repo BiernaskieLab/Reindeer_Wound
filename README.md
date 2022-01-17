@@ -21,4 +21,11 @@ In adult mammals, skin wound healing has evolved to favor rapid repair through f
 scRNA-Seq datasets characterizing temporal skin wound healing response in reindeer antler velvet and back skin
 NCBI GEO: [GSE142854](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE142854) <br/>
 
+scRNA-Seq datasets characterizing ectopic velvet grafts transplanted onto non-regenerative backskin 
+NCBI GEO: [GSE153095](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE153095) <br/>
+
+## Single-cell ATAC-Seq
+
+
 # Processed Datasets
+Velocyto- and SCENIC-generated LOOMs and genetic demultiplexed Seurat objects are available from [Figshare](http://doi.org/10.6084/m9.figshare.14196344) <br/>
